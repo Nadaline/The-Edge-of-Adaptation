@@ -1,0 +1,9 @@
+├── data/              # Dados brutos e processados
+│   ├── raw/           # Dados brutos não modificados
+│   ├── processed/     # Dados limpos ou manipulados
+├── scripts/           # Scripts de análise de dados
+├── results/           # Saída dos resultados (gráficos, tabelas)
+├── docs/              # Documentação e referências
+├── notebooks/         # Jupyter/RMarkdown notebooks com análises
+├── figures/           # Imagens e figuras geradas
+└── README.md          # Descrição do projeto
