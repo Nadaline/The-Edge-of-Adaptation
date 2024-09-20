@@ -3,15 +3,16 @@ require(dartR)
 require(geodata)
 
 # Loading Variables####
-setwd("/home/users/jnadaline/Ameiva/")
+setwd("/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/")
 # gl.a<- gl.read.vcf("Lampro_ddRAD_filtered.recode.vcf")
 gl.a<- gl.read.vcf("denovo_261_final.vcf")
-gl.write.csv(gl.a,"gl_ameiva")
+gl.write.csv(gl.a,"/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/gl_ameiva.csv")
 pop.a <- read.csv("pop261-dnv.csv")
 
 pop(gl.a) <- 1:261
 gl.a@other$latlongs <- pop.a[, 2:3]
 head(gl.a@other$latlongs)
+colnames(gl.a@other$latlongs)= c("lon","lat")
 # making the pop column of the pop data frame into categorical data 
 pop.a$pop <- as.factor(pop.a$POP)
 # assigning pop info to sites 
@@ -20,7 +21,7 @@ gl.a@other$ind.metrics$sites <- pop.a$pop
 gl.a@pop <- gl.a@other$ind.metrics$sites
 nPop(gl.a)
 gl.map.interactive(gl.a)
-gl
+gl.a
 
 # Download env layers ####
 require(terra)
@@ -208,3 +209,8 @@ final_plot <- ggdraw() +
   draw_plot(map_plot, x = 0.7, y = 0.7, width = 0.2, height = 0.2) # Ajuste a posição e tamanho do mapa conforme necessário
 
 print(final_plot)
+
+#Git
+
+git config  user.name "Júnior Nadaline"
+git config user.email "nadaline-@outlook.com"

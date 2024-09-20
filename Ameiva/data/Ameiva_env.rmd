@@ -3,8 +3,9 @@ title: "Ameiva_env"
 author: "Nadaline"
 date: "9/20/2024"
 output:
+  html_document: 
+    theme: spacelab
   pdf_document: default
-  html_document: default
 ---
 ---
 title: "Landscape Genomics Analysis"
@@ -28,15 +29,19 @@ require(gridExtra)
 
 ```
 ## Loading Variables
-```{r loading-variables}
+#```{r loading-variables}
+
 # Set working directory
 setwd("/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/")
 
 # Read VCF file
-gl.a <- gl.read.vcf("denovo_261_final.vcf")
+#gl.a <- gl.read.vcf("denovo_261_final.vcf")
 
 # Write genetic data to CSV
-gl.write.csv(gl.a, "/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/gl_ameiva.csv")
+#gl.write.csv(gl.a, "/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/gl_ameiva.csv")
+
+#Read genlight
+gl.a=gl.read.csv("gl_ameiva.csv")
 
 # Read population data
 pop.a <- read.csv("pop261-dnv.csv")
