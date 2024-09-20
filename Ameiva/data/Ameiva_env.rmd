@@ -1,0 +1,62 @@
+---
+title: "Ameiva_env"
+author: "Nadaline"
+date: "9/20/2024"
+output: html_document
+---
+---
+title: "Landscape Genomics Analysis"
+author: "Júnior Nadaline"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Packages
+```{r setup, include=FALSE}
+require(dartR)
+require(geodata)
+require(terra)
+require(psych)
+require(vegan)
+require(caret)
+require(zoo)
+require(cowplot)
+require(ggplot2)
+require(gridExtra)
+
+```
+## Loading Variables
+```{r loading-variables}
+# Set working directory
+setwd("/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/")
+
+# Read VCF file
+gl.a <- gl.read.vcf("denovo_261_final.vcf")
+
+# Write genetic data to CSV
+gl.write.csv(gl.a, "/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/gl_ameiva.csv")
+
+# Read population data
+pop.a <- read.csv("pop261-dnv.csv")
+
+# Assign populations and coordinates
+pop(gl.a) <- 1:261
+gl.a@other$latlongs <- pop.a[, 2:3]
+colnames(gl.a@other$latlongs) <- c("lon", "lat")
+
+# Convert population column to factor
+pop.a$pop <- as.factor(pop.a$POP)
+
+# Assign population info to sites
+gl.a@other$ind.metrics$sites <- pop.a$pop
+gl.a@pop <- gl.a@other$ind.metrics$sites
+
+# Number of populations
+nPop(gl.a)
+
+# Interactive map
+gl.map.interactive(gl.a)
+
+# Output the genetic data object
+gl.a
+```
