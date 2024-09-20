@@ -1,1 +1,1 @@
-# Landscape-Genomics-in-Lizardss
+# Landscape-Genomics-in-Lizards
