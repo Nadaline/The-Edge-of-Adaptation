@@ -4,9 +4,9 @@ require(geodata)
 
 # Loading Variables####
 setwd("/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/")
-# gl.a<- gl.read.vcf("Lampro_ddRAD_filtered.recode.vcf")
 gl.a<- gl.read.vcf("denovo_261_final.vcf")
-gl.write.csv(gl.a,"/home/users/jnadaline/Ameiva/Landscape-Genomics-in-Lizardss/Ameiva/data/gl_ameiva.csv")
+
+#pop assembling
 pop.a <- read.csv("pop261-dnv.csv")
 
 pop(gl.a) <- 1:261
@@ -19,7 +19,11 @@ pop.a$pop <- as.factor(pop.a$POP)
 gl.a@other$ind.metrics$sites <- pop.a$pop
 # assigning site info to pop
 gl.a@pop <- gl.a@other$ind.metrics$sites
-nPop(gl.a)
+
+#Save genlight
+gl.save(gl.a, file = "Ameiva_261.rda")
+load("ameiva.rda")
+
 gl.map.interactive(gl.a)
 gl.a
 
