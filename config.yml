@@ -1,0 +1,39 @@
+name: "The Edge of Adaptation"
+
+data:
+  raw_vcf: "data/raw/populations.snps.vcf"
+  metadata: "data/raw/Ameiva_Metadata.csv"
+  rasters_dir: "data/raw/rasters"
+  species_shp: "data/raw/Ameiva_ameiva.shp"
+
+paths:
+  processed_dir: "data/processed"
+  results_dir: "results"
+  logs_dir: "results/logs"
+
+filters:
+  callrate_loc: 0.7
+  callrate_ind: 0.7
+  maf: 0.05
+  depth_min: 8
+  depth_max: 200
+  ld_window_bp: 1000
+
+rda:
+  rda_axes: 3
+  permutation: 999
+  p_threshold: 0.01
+
+climate:
+  present_pattern: "2010"
+  fut2070_pattern: "2070"
+  fut2100_pattern: "2100"
+
+docker:
+  r_version: "4.5.3"
+  system_packages:
+    - libxml2-dev
+    - libssl-dev
+    - libcurl4-openssl-dev
+    - gdal-bin
+    - libgdal-dev

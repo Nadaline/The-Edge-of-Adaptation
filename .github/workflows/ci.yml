@@ -1,0 +1,31 @@
+name: R CI smoke test
+
+on:
+  push:
+    paths:
+      - '**.R'
+      - 'code/**'
+      - 'run_pipeline.R'
+  pull_request:
+
+jobs:
+  smoke_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.5'
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev libssl-dev libcurl4-openssl-dev gdal-bin libgdal-dev
+      - name: Install renv and restore (if lock present)
+        run: Rscript -e "install.packages('renv', repos='https://cloud.r-project.org'); if (file.exists('renv.lock')) renv::restore()"
+      - name: Generate small sample data
+        run: Rscript data/sample/generate_sample.R
+      - name: Run smoke test
+        run: Rscript run_pipeline.R --step smoke_test
+      - name: List results
+        run: ls -R
