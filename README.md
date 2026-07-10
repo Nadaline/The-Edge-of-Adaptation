@@ -15,7 +15,7 @@ The README below is a single file you can copy to `README.md`. It contains runna
 1. Requirements
 2. Repository layout
 3. Configure paths and thresholds (config.yml example)
-4. Step 1 — Filtering (Lampropholis-style)
+4. Step 1 — Filtering (STACKS)
 5. Step 2 — Preprocessing wrapper (dartR)
 6. Step 3 — RDA, variable selection and outlier detection
 7. Step 4 — Genomic offset (projection)
