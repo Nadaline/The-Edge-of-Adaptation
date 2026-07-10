@@ -42,17 +42,8 @@ install.packages(c("vcfR","raster","sf","yaml","optparse","withr","ggplot2"))
 # install dartR and other packages from CRAN or GitHub as appropriate
 ```
 
-## 2. Repository layout (recommended)
-config.yml — configuration of input paths and thresholds
-code/01_preprocess_dartR.R — preprocessing script (dartR)
-code/02_rda.R — RDA & outlier detection script
-code/03_offset.R — genomic offset projection script
-data/raw/ — raw files (VCF, metadata CSV, rasters, shapefiles) — do not commit large files
-data/processed/ — processed R objects (RDS)
-results/ — results outputs (RDA summary, outliers, offsets, figures)
 
-
-## 3. Step 1 — Filtering
+## Step 1 — Filtering
 This exact sequence is applied prior to downstream analyses. Run interactively or save as code/00_filtering_example.R.
 
 Locus call rate (loc)
@@ -132,7 +123,7 @@ if (!is.null(pop(gl))) {
   saveRDS(AllFreqp, "data/processed/AllFreqp.rds")
 }
 ```
-## 5. Step 2 — Preprocessing wrapper (dartR)
+## Step 2 — Preprocessing wrapper (dartR)
 Place as code/01_preprocess_dartR.R. This loads config.yml, runs the filters above and writes processed RDS files.
 
 ```R
@@ -206,7 +197,7 @@ run_preprocess <- function(cfg) {
 if (interactive() == FALSE) run_preprocess(cfg)
 ```
 
-## 6. Step 3 — RDA, variable selection and outlier detection
+## Step 3 — RDA, variable selection and outlier detection
 Place as code/02_rda.R. This runs Boruta variable selection, builds a partial RDA (Condition on neutral structure if available), and runs the rdadapt-like outlier scan on RDA loadings. This script was build based on Capblanq RDA Swiss Knife original paper and also with Josue Azevedo mentoring.
 
 ```R
@@ -279,7 +270,7 @@ outlier_names <- if (length(outliers_idx)>0) colnames(AllFreq.i)[outliers_idx] e
 saveRDS(outlier_names, file.path(results_dir,"rda","outliers_list.rds"))
 message("Outliers:", length(outlier_names))
 ```
-## 7. Step 4 — Genomic offset (projection)
+## Step 4 — Genomic offset (projection)
 Place as code/03_offset.R. This uses RDA loadings to compute per-pixel adaptive index for present and future and the weighted euclidean distance (global genomic offset).
 ```R
 # code/03_offset.R
@@ -343,3 +334,5 @@ If rasters do not align or have NA areas, use the helper to mask rasters with sp
 Save center_env and scale_env used to standardize predictors during model fitting — those must be used for future projections.
 For large raster projections, aggregate or run on HPC.
 
+## License
+This reposity is still under development, then raw data, License and Citation guidelines will be here as soon as we publish the paper/pre-print
